@@ -58,4 +58,11 @@ public class BrandService {
         return BrandDTO.from(savedBrand);
     }
 
+    public BrandDTO delete(Integer id) throws BrandNotFoundException {
+        final Brand brand = this.brandRepository.findById(id).orElseThrow(() -> new BrandNotFoundException(id));
+        BrandDTO deletedBrand = BrandDTO.from(brand);
+        this.brandRepository.delete(brand);
+        return deletedBrand;
+    }
+
 }

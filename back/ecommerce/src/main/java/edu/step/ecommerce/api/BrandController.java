@@ -50,4 +50,14 @@ public class BrandController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable("id") Integer id) {
+        try {
+            BrandDTO deletedBrand = this.brandService.delete(id);
+            return ResponseEntity.ok(deletedBrand);
+        } catch (BrandNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
