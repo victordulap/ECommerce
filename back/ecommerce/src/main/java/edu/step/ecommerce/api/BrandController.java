@@ -3,6 +3,7 @@ package edu.step.ecommerce.api;
 import edu.step.ecommerce.model.Brand;
 import edu.step.ecommerce.model.dto.BrandDTO;
 import edu.step.ecommerce.service.BrandService;
+import edu.step.ecommerce.service.exception.BrandNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,23 @@ public class BrandController {
     public  ResponseEntity getAll() {
         final List<BrandDTO> brands = this.brandService.findAll();
         return ResponseEntity.ok(brands);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getById(@PathVariable("id") Integer id) {
+        try {
+            return ResponseEntity.ok(this.brandService.findById(id));
+        } catch (BrandNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody BrandDTO brandToUpdate) {
+        try {
+            return ResponseEntity.ok(this.brandService.update(brandToUpdate));
+        } catch (BrandNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

@@ -3,6 +3,7 @@ package edu.step.ecommerce.service;
 import edu.step.ecommerce.model.Brand;
 import edu.step.ecommerce.model.dto.BrandDTO;
 import edu.step.ecommerce.repository.BrandRepository;
+import edu.step.ecommerce.service.exception.BrandNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,4 +34,28 @@ public class BrandService {
                 .map(brand -> BrandDTO.from(brand))
                 .collect(Collectors.toList());
     }
+
+    public BrandDTO findById(Integer id) throws BrandNotFoundException {
+        final Brand brandById = this.brandRepository.findById(id).orElseThrow(() -> new BrandNotFoundException(id));
+        return BrandDTO.from(brandById);
+    }
+
+    public BrandDTO update(BrandDTO newBrandData) throws BrandNotFoundException {
+        final Integer id = newBrandData.getId();
+        final Brand brand = this.brandRepository.findById(id).orElseThrow(() -> new BrandNotFoundException(id));
+
+        String name = newBrandData.getName();
+        if (name != null) {
+            brand.setName(newBrandData.getName());
+        }
+
+        String description = newBrandData.getDescription();
+        if (description != null) {
+            brand.setDescription(newBrandData.getDescription());
+        }
+
+        final Brand savedBrand = this.brandRepository.save(brand);
+        return BrandDTO.from(savedBrand);
+    }
+
 }
