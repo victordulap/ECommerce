@@ -6,10 +6,13 @@ import edu.step.ecommerce.model.dto.ItemDTO;
 import edu.step.ecommerce.repository.BrandRepository;
 import edu.step.ecommerce.repository.ItemRepository;
 import edu.step.ecommerce.service.exception.BrandNotFoundException;
+import edu.step.ecommerce.service.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -44,6 +47,18 @@ public class ItemService {
         }
         linkedBrand.getItems().add(savedItem);
         this.brandRepository.save(linkedBrand);
+
         return ItemDTO.from(item);
+    }
+
+    public List<ItemDTO> findAll() {
+        return this.itemRepository.findAll().stream().map(item -> ItemDTO.from(item)).collect(Collectors.toList());
+    }
+
+    public ItemDTO delete(Integer id) throws ItemNotFoundException {
+        final Item item = this.itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+        ItemDTO deletedItem = ItemDTO.from(item);
+        this.itemRepository.delete(item);
+        return deletedItem;
     }
 }
