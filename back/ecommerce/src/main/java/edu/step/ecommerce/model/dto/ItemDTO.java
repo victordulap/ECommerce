@@ -16,10 +16,10 @@ public class ItemDTO {
 		+ "stock": "Int (how many left)",
        	+ "gender": "Boolean (true - male, false - female)",
         + "brand": "Brand ManyToOne",
-		"sizes": "[]Size ManyToMany",
-		"colors": "[]Colors ManyToMany",
-		"subCategories": "SubCategory ManyToOne",
-		"tags": "[]Tags ManyToMany (used for easier searching)"
+		+ "sizes": "[]Size ManyToMany",
+		"colors": "Color ManyToOne",
+		"category": "Category ManyToOne",
+		"tags": "[]Tag ManyToMany (used for easier searching)"
      */
 
     private Integer id;
