@@ -46,4 +46,11 @@ public class ItemController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+//    @PutMapping
+//    public ResponseEntity update(@RequestBody ItemDTO item) {
+//        try {
+//          return ResponseEntity.ok(this.itemService.update(item));
+//        }
+//    }
 }

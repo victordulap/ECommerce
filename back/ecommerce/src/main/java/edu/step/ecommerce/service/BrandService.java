@@ -47,12 +47,12 @@ public class BrandService {
 
         String name = newBrandData.getName();
         if (name != null) {
-            brand.setName(newBrandData.getName());
+            brand.setName(name);
         }
 
         String description = newBrandData.getDescription();
         if (description != null) {
-            brand.setDescription(newBrandData.getDescription());
+            brand.setDescription(description);
         }
 
         final Brand savedBrand = this.brandRepository.save(brand);

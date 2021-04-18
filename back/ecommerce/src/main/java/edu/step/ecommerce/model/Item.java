@@ -6,11 +6,12 @@ import javax.persistence.*;
 @Entity
 public class Item {
     /*
-        "id": "Int",
-		"name": "String",
-		"description": "String",
-		"price": "Double (in usd)",
-		"stock": "Int (how many left)",
+        + "id": "Int",
+		+ "name": "String",
+		+ "description": "String",
+		+ "price": "Double (in usd)",
+		+ "stock": "Int (how many left)",
+       	"gender": "Boolean (true - male, false - female)",
         "brand": "Brand ManyToOne",
 		"sizes": "[]Size ManyToMany",
 		"colors": "[]Colors ManyToMany",
@@ -25,18 +26,20 @@ public class Item {
     private String description;
     private Integer stock;
     private Double price;
+    private Boolean gender;
 
     @ManyToOne
     private Brand brand;
 
     public Item() {}
 
-    public Item(Integer id, String name, String description, Integer stock, Double price) {
+    public Item(Integer id, String name, String description, Integer stock, Double price, Boolean gender) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
+        this.gender = gender;
     }
 
     public Integer getId() {
@@ -85,5 +88,13 @@ public class Item {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
     }
 }

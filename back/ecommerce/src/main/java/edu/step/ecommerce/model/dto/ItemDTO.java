@@ -6,22 +6,38 @@ import edu.step.ecommerce.model.Item;
 import javax.persistence.ManyToOne;
 
 public class ItemDTO {
+    /*
+        + "id": "Int",
+		+ "name": "String",
+		+ "description": "String",
+		+ "price": "Double (in usd)",
+		+ "stock": "Int (how many left)",
+       	+ "gender": "Boolean (true - male, false - female)",
+        "brand": "Brand ManyToOne",
+		"sizes": "[]Size ManyToMany",
+		"colors": "[]Colors ManyToMany",
+		"subCategories": "SubCategory ManyToOne",
+		"tags": "[]Tags ManyToMany (used for easier searching)"
+     */
+
     private Integer id;
     private String name;
     private String description;
     private Integer stock;
     private Double price;
+    private Boolean gender;
 
     private Integer brand;
 
     public ItemDTO() {}
 
-    public ItemDTO(Integer id, String name, String description, Integer stock, Double price) {
+    public ItemDTO(Integer id, String name, String description, Integer stock, Double price, Boolean gender) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.stock = stock;
         this.price = price;
+        this.gender = gender;
     }
 
     public Integer getId() {
@@ -60,6 +76,14 @@ public class ItemDTO {
         return stock;
     }
 
+    public Boolean getGender() {
+        return gender;
+    }
+
+    public void setGender(Boolean gender) {
+        this.gender = gender;
+    }
+
     public void setStock(Integer stock) {
         this.stock = stock;
     }
@@ -74,7 +98,7 @@ public class ItemDTO {
 
     public static ItemDTO from(Item item) {
         final ItemDTO dto = new ItemDTO(item.getId(), item.getName(), item.getDescription(),
-                item.getStock(), item.getPrice());
+                item.getStock(), item.getPrice(), item.getGender());
         if(item.getBrand() != null) {
             dto.setBrand(item.getBrand().getId());
         }

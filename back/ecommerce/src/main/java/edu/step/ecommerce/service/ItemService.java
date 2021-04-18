@@ -27,12 +27,7 @@ public class ItemService {
 
     public ItemDTO save(ItemDTO itemDTO) throws BrandNotFoundException {
         final Item item = new Item(itemDTO.getId(), itemDTO.getName(), itemDTO.getDescription(),
-                itemDTO.getStock(), itemDTO.getPrice());
-//        item.setId(itemDTO.getId());
-//        item.setName(itemDTO.getName());
-//        item.setDescription(item.getDescription());
-//        item.setPrice(itemDTO.getPrice());
-//        item.setStock(itemDTO.getStock());
+                itemDTO.getStock(), itemDTO.getPrice(), itemDTO.getGender());
         Brand linkedBrand = null;
         Integer brandId = itemDTO.getBrand();
         if (brandId != null) {
@@ -61,4 +56,10 @@ public class ItemService {
         this.itemRepository.delete(item);
         return deletedItem;
     }
+
+//    public ItemDTO update(ItemDTO newItemData) throws ItemNotFoundException {
+//        final Integer id = newItemData.getId();
+//        final Item item = this.itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
+//
+//    }
 }
