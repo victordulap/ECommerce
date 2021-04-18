@@ -4,6 +4,8 @@ import edu.step.ecommerce.model.Brand;
 import edu.step.ecommerce.model.Item;
 
 import javax.persistence.ManyToOne;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ItemDTO {
     /*
@@ -13,7 +15,7 @@ public class ItemDTO {
 		+ "price": "Double (in usd)",
 		+ "stock": "Int (how many left)",
        	+ "gender": "Boolean (true - male, false - female)",
-        "brand": "Brand ManyToOne",
+        + "brand": "Brand ManyToOne",
 		"sizes": "[]Size ManyToMany",
 		"colors": "[]Colors ManyToMany",
 		"subCategories": "SubCategory ManyToOne",
@@ -28,6 +30,7 @@ public class ItemDTO {
     private Boolean gender;
 
     private Integer brand;
+    private Set<Integer> sizes;
 
     public ItemDTO() {}
 
@@ -96,11 +99,26 @@ public class ItemDTO {
         this.price = price;
     }
 
+    public Set<Integer> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(Set<Integer> sizes) {
+        this.sizes = sizes;
+    }
+
     public static ItemDTO from(Item item) {
         final ItemDTO dto = new ItemDTO(item.getId(), item.getName(), item.getDescription(),
                 item.getStock(), item.getPrice(), item.getGender());
         if(item.getBrand() != null) {
             dto.setBrand(item.getBrand().getId());
+        }
+        if (item.getSizes() != null) {
+            final Set<Integer> sizeIds = item.getSizes()
+                    .stream()
+                    .map(size -> size.getId())
+                    .collect(Collectors.toSet());
+            dto.setSizes(sizeIds);
         }
         return dto;
     }

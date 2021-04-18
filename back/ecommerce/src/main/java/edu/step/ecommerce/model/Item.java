@@ -2,6 +2,7 @@ package edu.step.ecommerce.model;
 
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Item {
@@ -11,8 +12,8 @@ public class Item {
 		+ "description": "String",
 		+ "price": "Double (in usd)",
 		+ "stock": "Int (how many left)",
-       	"gender": "Boolean (true - male, false - female)",
-        "brand": "Brand ManyToOne",
+       	+ "gender": "Boolean (true - male, false - female)",
+        + "brand": "Brand ManyToOne",
 		"sizes": "[]Size ManyToMany",
 		"colors": "[]Colors ManyToMany",
 		"subCategories": "SubCategory ManyToOne",
@@ -30,6 +31,8 @@ public class Item {
 
     @ManyToOne
     private Brand brand;
+    @ManyToMany
+    private Set<Size> sizes;
 
     public Item() {}
 
@@ -88,6 +91,14 @@ public class Item {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Set<Size> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(Set<Size> sizes) {
+        this.sizes = sizes;
     }
 
     public Boolean getGender() {
