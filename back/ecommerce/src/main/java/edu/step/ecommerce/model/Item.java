@@ -16,7 +16,7 @@ public class Item {
         + "brand": "Brand ManyToOne",
 		+ "sizes": "[]Size ManyToMany",
 		+ "color": "Color ManyToOne",
-		"category": "Category ManyToOne",
+		+ "category": "Category ManyToOne",
 		"tags": "[]Tag ManyToMany (used for easier searching)"
      */
 
@@ -35,6 +35,8 @@ public class Item {
     private Set<Size> sizes;
     @ManyToOne
     private Color color;
+    @ManyToOne
+    private Category category;
 
     public Item() {}
 
@@ -117,5 +119,13 @@ public class Item {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

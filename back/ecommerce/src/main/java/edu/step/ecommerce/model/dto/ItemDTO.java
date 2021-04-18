@@ -18,7 +18,7 @@ public class ItemDTO {
         + "brand": "Brand ManyToOne",
 		+ "sizes": "[]Size ManyToMany",
 		+ "color": "Color ManyToOne",
-		"category": "Category ManyToOne",
+		+ "category": "Category ManyToOne",
 		"tags": "[]Tag ManyToMany (used for easier searching)"
      */
 
@@ -32,6 +32,7 @@ public class ItemDTO {
     private Integer brand;
     private Set<Integer> sizes;
     private Integer color;
+    private Integer category;
 
     public ItemDTO() {}
 
@@ -116,6 +117,14 @@ public class ItemDTO {
         this.color = color;
     }
 
+    public Integer getCategory() {
+        return category;
+    }
+
+    public void setCategory(Integer category) {
+        this.category = category;
+    }
+
     public static ItemDTO from(Item item) {
         final ItemDTO dto = new ItemDTO(item.getId(), item.getName(), item.getDescription(),
                 item.getStock(), item.getPrice(), item.getGender());
@@ -131,6 +140,9 @@ public class ItemDTO {
         }
         if (item.getColor() != null) {
             dto.setColor(item.getColor().getId());
+        }
+        if (item.getCategory() != null) {
+            dto.setCategory(item.getCategory().getId());
         }
 
         return dto;
