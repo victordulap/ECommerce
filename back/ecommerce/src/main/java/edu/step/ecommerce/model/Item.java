@@ -15,7 +15,7 @@ public class Item {
        	+ "gender": "Boolean (true - male, false - female)",
         + "brand": "Brand ManyToOne",
 		+ "sizes": "[]Size ManyToMany",
-		"colors": "Color ManyToOne",
+		+ "color": "Color ManyToOne",
 		"category": "Category ManyToOne",
 		"tags": "[]Tag ManyToMany (used for easier searching)"
      */
@@ -33,6 +33,8 @@ public class Item {
     private Brand brand;
     @ManyToMany
     private Set<Size> sizes;
+    @ManyToOne
+    private Color color;
 
     public Item() {}
 
@@ -107,5 +109,13 @@ public class Item {
 
     public void setGender(Boolean gender) {
         this.gender = gender;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

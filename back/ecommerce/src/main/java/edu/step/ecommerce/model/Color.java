@@ -22,6 +22,11 @@ public class Color {
     public Color() {
     }
 
+    public Color(Integer id, String color) {
+        this.id = id;
+        this.color = color;
+    }
+
     public Integer getId() {
         return id;
     }
