@@ -17,7 +17,7 @@ public class Item {
 		+ "sizes": "[]Size ManyToMany",
 		+ "color": "Color ManyToOne",
 		+ "category": "Category ManyToOne",
-		"tags": "[]Tag ManyToMany (used for easier searching)"
+		+ "tags": "[]Tag ManyToMany (used for easier searching)"
      */
 
     @Id
@@ -37,6 +37,8 @@ public class Item {
     private Color color;
     @ManyToOne
     private Category category;
+    @ManyToMany
+    private Set<Tag> tags;
 
     public Item() {}
 
@@ -127,5 +129,13 @@ public class Item {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }

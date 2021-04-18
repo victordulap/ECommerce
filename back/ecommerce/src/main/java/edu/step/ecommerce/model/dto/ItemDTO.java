@@ -19,7 +19,7 @@ public class ItemDTO {
 		+ "sizes": "[]Size ManyToMany",
 		+ "color": "Color ManyToOne",
 		+ "category": "Category ManyToOne",
-		"tags": "[]Tag ManyToMany (used for easier searching)"
+		+ "tags": "[]Tag ManyToMany (used for easier searching)"
      */
 
     private Integer id;
@@ -33,6 +33,7 @@ public class ItemDTO {
     private Set<Integer> sizes;
     private Integer color;
     private Integer category;
+    private Set<Integer> tags;
 
     public ItemDTO() {}
 
@@ -125,6 +126,14 @@ public class ItemDTO {
         this.category = category;
     }
 
+    public Set<Integer> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Integer> tags) {
+        this.tags = tags;
+    }
+
     public static ItemDTO from(Item item) {
         final ItemDTO dto = new ItemDTO(item.getId(), item.getName(), item.getDescription(),
                 item.getStock(), item.getPrice(), item.getGender());
@@ -144,7 +153,13 @@ public class ItemDTO {
         if (item.getCategory() != null) {
             dto.setCategory(item.getCategory().getId());
         }
-
+        if (item.getTags() != null) {
+            final Set<Integer> tagIds = item.getTags()
+                    .stream()
+                    .map(tag -> tag.getId())
+                    .collect(Collectors.toSet());
+            dto.setTags(tagIds);
+        }
         return dto;
     }
 }
